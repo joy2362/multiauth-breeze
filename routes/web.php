@@ -16,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/admin/home', function () {
     return view('admin.home');
 })->middleware(['auth:admin'])->name('admin.home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth:web'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin-auth.php';
