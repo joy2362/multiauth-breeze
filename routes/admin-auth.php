@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthenticatedSessionController ;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Admin\ConfirmablePasswordController;
+use App\Http\Controllers\Admin\EmailVerificationNotificationController;
+use App\Http\Controllers\admin\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\NewPasswordController;
 use App\Http\Controllers\Admin\PasswordResetLinkController;
 use App\Http\Controllers\Admin\RegisterUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -26,7 +26,6 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
-//done
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
     ->name('admin.password.request');
@@ -46,7 +45,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
     ->middleware('auth:admin')
     ->name('admin.verification.notice');
-
+//done
 Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
     ->middleware(['auth:admin', 'signed', 'throttle:6,1'])
     ->name('admin.verification.verify');
